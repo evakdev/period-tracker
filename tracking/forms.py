@@ -1,15 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
-from django.core.checks import messages
-from django.db.models import fields
-from django.utils.html import linebreaks
-
-from .models import *
-
-
-
-
+from .models import Category, Trackable
 
 def tuplemaker(themodel):
     values=list(themodel.objects.values_list('name', flat=True).order_by('name'))
@@ -17,13 +7,6 @@ def tuplemaker(themodel):
     for i in range (len(values)):
         final.append((values[i],values[i]))
     return final
-
-
-class TestForm(forms.ModelForm):
-    class Meta:
-        model=Trackable
-        fields=['name','category']
-
 
 class NewCategoryForm(forms.Form):
     name=forms.CharField(label='New Category')
