@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+<html lang="en">
+
+
+{% block title %} Trackables {% endblock %}
+{% block content %} 
+    <section class="u-clearfix u-grey-5 u-section-1" id="sec-a2ec">
+      <div class="u-clearfix u-sheet u-sheet-1">
+        <div class="u-clearfix u-expanded-width u-gutter-34 u-layout-wrap u-layout-wrap-1">
+          <div class="u-layout" style="">
+            <div class="u-layout-row" style="">
+              <div class="u-container-style u-layout-cell u-left-cell u-shape-rectangle u-size-30 u-size-xs-60 u-layout-cell-1" src="">
+                <div class="u-container-layout u-container-layout-1">
+                  <h2 class="u-align-center u-custom-font u-text u-text-default u-text-1">Your Trackables</h2>
+                  <p class="u-align-center u-custom-font u-heading-font u-text u-text-2">This is a list of all your Trackables. Use the right pane to add new Trackables or edit and delete the list above. </p>
+                  <p class="u-align-center u-custom-font u-heading-font u-text u-text-2">Remember, if you delete a trackable, any previous logs of it will be deleted! </p>
+                  <div class="u-accordion u-collapsed-by-default u-accordion-1" >
+                  {% for name,set in catdict.items %}
+                    <div class="u-accordion-item">
+                      <a class="u-accordion-link u-active-palette-3-light-1 u-border-1 u-border-active-grey-75 u-border-hover-grey-75 u-border-no-left u-border-no-right u-border-no-top u-button-style u-custom-font u-hover-custom-color-7 u-palette-3-light-1 u-radius-1 u-text-active-black u-text-black u-accordion-link-1" id="link-accordion-de4b" aria-controls="accordion-de4b" aria-selected="false">
+                        <span class="u-accordion-link-text">{{name}}</span><span class="u-accordion-link-icon u-icon u-icon-circle u-text-custom-color-1 u-icon-1"><svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 16 16" style=""><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-1a69"></use></svg><svg class="u-svg-content" viewBox="0 0 16 16" x="0px" y="0px" id="svg-1a69"><path d="M8,10.7L1.6,5.3c-0.4-0.4-1-0.4-1.3,0c-0.4,0.4-0.4,0.9,0,1.3l7.2,6.1c0.1,0.1,0.4,0.2,0.6,0.2s0.4-0.1,0.6-0.2l7.1-6
+	c0.4-0.4,0.4-0.9,0-1.3c-0.4-0.4-1-0.4-1.3,0L8,10.7z"></path></svg></span>
+                      </a>
+                      <div class="u-accordion-pane u-container-style u-grey-10 u-opacity u-opacity-70 u-shape-rectangle u-accordion-pane-1" id="accordion-de4b" aria-labelledby="link-accordion-de4b">
+                        <div class="u-container-layout u-container-layout-2">
+                          <ul class="u-text u-text-default u-text-3">
+                          {% for trackable in set %}
+                              <li>{{trackable.name}}</li>
+                                {% endfor %} 
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                   {% endfor %}
+
+                  </div>
+                </div>
+              </div>
+              <div class="u-align-left u-container-style u-layout-cell u-right-cell u-shape-rectangle u-size-30 u-size-xs-60 u-layout-cell-2" src="">
+                <div class="u-container-layout u-container-layout-5" src="">
+                  <h2 class="u-align-center u-custom-font u-text u-text-default u-text-6">Add</h2>
+                  <p class="u-align-left u-custom-font u-heading-font u-text u-text-2">
+                    <form method='POST' class='post-form'>
+                      {% csrf_token %} 
+                      <table>{{forms.newcat.as_table}}</table>
+                      <p><button type='submit' name='addcategory' class="u-btn u-btn-round u-button-style u-hover-palette-3-light-2 u-palette-3-light-1 u-radius-50 u-btn-1">Add</button>
+                      </p>
+                    </form>
+
+                    <form method='POST' class='post-form'>
+                      {% csrf_token %} 
+                      <table>{{ forms.newtrack.as_table}}</table>
+                      <p><button type='submit' name='addtrackable' class="u-btn u-btn-round u-button-style u-hover-palette-3-light-2 u-palette-3-light-1 u-radius-50 u-btn-1">Add</button>
+                      </p>
+                    </form>
+                  </p>
+                  
+                  <div class="u-border-3 u-border-grey-dark-1 u-line u-line-horizontal u-line-1"></div>
+                  <h2 class="u-align-center u-custom-font u-text u-text-default u-text-7">Edit</h2>
+                  <p class="u-align-left u-custom-font u-heading-font u-text u-text-2">
+                  <form method='POST' class='post-form'>
+                    {% csrf_token %}
+                    <table>{{forms.editcat.as_table}}</table>
+                    <p><button type='submit' name='editcategory' class="u-btn u-btn-round u-button-style u-hover-palette-3-light-2 u-palette-3-light-1 u-radius-50 u-btn-1">Edit</button>
+                    </p>
+                  </form>
+                  
+                  <form method='POST' class='post-form'>
+                    {% csrf_token %}
+                    <table>{{forms.edittrack.as_table}}</table>
+                    <p><button type='submit' name='edittrackable' class="u-btn u-btn-round u-button-style u-hover-palette-3-light-2 u-palette-3-light-1 u-radius-50 u-btn-1">Edit</button>
+                    </p>
+                  </form>
+                  </p>
+
+                <div class="u-border-3 u-border-grey-dark-1 u-line u-line-horizontal u-line-1"></div>
+                  <h2 class="u-align-center u-custom-font u-text u-text-default u-text-7">Delete</h2>
+                  <p class="u-align-left u-custom-font u-heading-font u-text u-text-2">
+                  <form method='POST' class='post-form'>
+                    {% csrf_token %}
+                    <table>{{forms.deletecat.as_table}}</table>
+                    <p><button type='submit' name='deletecategory' class="u-btn u-btn-round u-button-style u-hover-palette-3-light-2 u-palette-3-light-1 u-radius-50 u-btn-1">Delete</button>
+                    </p>
+                  </form>
+
+                  <form method='POST' class='post-form'>
+                    {% csrf_token %}
+                    <table>{{forms.editcat.as_table}}</table>
+                    <p><button type='submit' name='deletetrackable' class="u-btn u-btn-round u-button-style u-hover-palette-3-light-2 u-palette-3-light-1 u-radius-50 u-btn-1">Delete</button>
+                    </p>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  
+        
+{% endblock %}
+</html>

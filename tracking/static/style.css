@@ -1,0 +1,337 @@
+.u-section-1 {
+  background-image: none;
+}
+
+.u-section-1 .u-sheet-1 {
+  min-height: 100vh;
+}
+
+.u-section-1 .u-layout-wrap-1 {
+  pointer-events: auto;
+  margin-top: 60px;
+  margin-bottom: 60px;
+}
+
+.u-section-1 .u-layout-cell-1 {
+  min-height: 577px;
+  pointer-events: auto;
+}
+
+.u-section-1 .u-container-layout-1 {
+  box-shadow: 5px 5px 20px 0 rgba(0,0,0,0.4);
+  padding: 30px 60px;
+}
+
+.u-section-1 .u-text-1 {
+  font-family: "Autour One";
+  margin: 0 45px;
+}
+
+.u-section-1 .u-text-2 {
+  width: 344px;
+  font-size: 1.125rem;
+  margin: 44px auto 0;
+}
+
+.u-section-1 .u-accordion-1 {
+  width: 389px;
+  margin: 57px auto 0;
+}
+
+.u-section-1 .u-accordion-link-1 {
+  font-weight: 700;
+  font-family: "Autour One";
+  background-image: none;
+}
+
+.u-section-1 .u-icon-1 {
+  height: 15px;
+  width: 15px;
+  background-image: none;
+}
+
+.u-section-1 .u-accordion-pane-1 {
+  min-height: 150px;
+  background-image: none;
+}
+
+.u-section-1 .u-container-layout-2 {
+  padding: 30px;
+}
+
+.u-section-1 .u-text-3 {
+  margin-top: 0;
+}
+
+.u-section-1 .u-accordion-link-2 {
+  font-weight: 700;
+  font-family: "Autour One";
+  background-image: none;
+}
+
+.u-section-1 .u-icon-2 {
+  height: 15px;
+  width: 15px;
+  background-image: none;
+}
+
+.u-section-1 .u-accordion-pane-2 {
+  min-height: 150px;
+  background-image: none;
+}
+
+.u-section-1 .u-container-layout-3 {
+  padding: 30px;
+}
+
+.u-section-1 .u-text-4 {
+  margin: -30px -30px 0;
+}
+
+.u-section-1 .u-accordion-link-3 {
+  font-weight: 700;
+  font-family: "Autour One";
+  background-image: none;
+}
+
+.u-section-1 .u-icon-3 {
+  height: 15px;
+  width: 15px;
+  background-image: none;
+}
+
+.u-section-1 .u-accordion-pane-3 {
+  min-height: 150px;
+  background-image: none;
+}
+
+.u-section-1 .u-container-layout-4 {
+  padding: 30px;
+}
+
+.u-section-1 .u-text-5 {
+  margin: -30px -30px 0;
+}
+
+.u-section-1 .u-layout-cell-2 {
+  min-height: 577px;
+  pointer-events: auto;
+  animation-duration: 1000ms;
+}
+
+.u-section-1 .u-container-layout-5 {
+  box-shadow: 5px 5px 20px 0 rgba(0,0,0,0.4);
+  padding: 30px 60px;
+}
+
+.u-section-1 .u-text-6 {
+  font-family: "Autour One";
+  margin: 0 175px;
+}
+
+.u-section-1 .u-btn-1 {
+  border-style: none;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.875rem;
+  letter-spacing: 1px;
+  background-image: none;
+  margin: 0px auto 0;
+}
+
+.u-section-1 .u-line-1 {
+  width: 423px;
+  height: 3px;
+  transform-origin: right center 0px;
+  margin: 39px 0 0 auto;
+}
+
+.u-section-1 .u-text-7 {
+  font-family: "Autour One";
+  margin: 54px 165px 0;
+}
+
+.u-section-1 .u-btn-2 {
+  border-style: none;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.875rem;
+  letter-spacing: 1px;
+  background-image: none;
+  margin: 86px 54px 0 auto;
+}
+
+.u-section-1 .u-btn-3 {
+  border-style: none;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.875rem;
+  letter-spacing: 1px;
+  background-image: none;
+  margin: 0px auto 0 60px;
+}
+
+@media (max-width: 1199px) {
+  .u-section-1 .u-sheet-1 {
+    min-height: 718px;
+  }
+
+  .u-section-1 .u-layout-cell-1 {
+    min-height: 476px;
+  }
+
+  .u-section-1 .u-text-1 {
+    margin-right: 0;
+    margin-left: 0;
+  }
+
+  .u-section-1 .u-text-2 {
+    width: 333px;
+  }
+
+  .u-section-1 .u-accordion-1 {
+    width: 333px;
+  }
+
+  .u-section-1 .u-icon-1 {
+    color: rgb(153, 153, 153);
+  }
+
+  .u-section-1 .u-text-3 {
+    font-family: "Open Sans", sans-serif;
+  }
+
+  .u-section-1 .u-icon-2 {
+    color: rgb(153, 153, 153);
+  }
+
+  .u-section-1 .u-text-4 {
+    margin-right: 0;
+    margin-left: 0;
+  }
+
+  .u-section-1 .u-icon-3 {
+    color: rgb(153, 153, 153);
+  }
+
+  .u-section-1 .u-text-5 {
+    margin-right: 0;
+    margin-left: 0;
+  }
+
+  .u-section-1 .u-layout-cell-2 {
+    background-position: 50% 50%;
+    min-height: 476px;
+  }
+
+  .u-section-1 .u-text-6 {
+    margin-left: 125px;
+    margin-right: 125px;
+  }
+
+  .u-section-1 .u-line-1 {
+    width: 333px;
+  }
+
+  .u-section-1 .u-text-7 {
+    margin-left: 125px;
+    margin-right: 125px;
+  }
+
+  .u-section-1 .u-btn-2 {
+    margin-right: 0;
+  }
+
+  .u-section-1 .u-btn-3 {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 991px) {
+  .u-section-1 .u-sheet-1 {
+    min-height: 351px;
+  }
+
+  .u-section-1 .u-layout-cell-1 {
+    min-height: 100px;
+  }
+
+  .u-section-1 .u-container-layout-1 {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  .u-section-1 .u-text-2 {
+    width: 283px;
+  }
+
+  .u-section-1 .u-accordion-1 {
+    width: 283px;
+  }
+
+  .u-section-1 .u-layout-cell-2 {
+    min-height: 100px;
+  }
+
+  .u-section-1 .u-container-layout-5 {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  .u-section-1 .u-text-6 {
+    margin-left: 100px;
+    margin-right: 100px;
+  }
+
+  .u-section-1 .u-line-1 {
+    width: 283px;
+  }
+
+  .u-section-1 .u-text-7 {
+    margin-left: 100px;
+    margin-right: 100px;
+  }
+}
+
+@media (max-width: 767px) {
+  .u-section-1 .u-sheet-1 {
+    min-height: 451px;
+  }
+
+  .u-section-1 .u-container-layout-1 {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .u-section-1 .u-container-layout-2 {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .u-section-1 .u-container-layout-3 {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .u-section-1 .u-container-layout-4 {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .u-section-1 .u-container-layout-5 {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+@media (max-width: 575px) {
+  .u-section-1 .u-text-6 {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .u-section-1 .u-text-7 {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
