@@ -1,5 +1,7 @@
 from django import forms
+
 from .models import Category, Trackable
+
 
 def tuplemaker(themodel):
     values=list(themodel.objects.values_list('name', flat=True).order_by('name'))

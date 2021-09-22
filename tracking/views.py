@@ -4,21 +4,12 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
-from .forms import (
-    NewCategoryForm,
-    NewTrackableForm,
-    EditCategoryForm,
-    EditTrackableForm,
-    DeleteCateogryForm,
-    DeleteTrackableForm,
-)
-from .models import Cycle, Day, Category, Trackable
+from .forms import (DeleteCateogryForm, DeleteTrackableForm, EditCategoryForm,
+                    EditTrackableForm, NewCategoryForm, NewTrackableForm)
+from .models import Category, Cycle, Day, Trackable
+
 
 ############# NOT VIEWS ###############
-def error_report(e, num):
-    return HttpResponse(f"<b>Error is here for {num}:</br> <br> {e})")
-
-
 def create_cycle(date, dayobj):
     id = Cycle.objects.count()
     Cycle.objects.create(idnum=id + 1, first=date)  # making new cycle

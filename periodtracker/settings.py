@@ -30,6 +30,8 @@ ALLOWED_HOSTS = []
 #Custom user
 AUTH_USER_MODEL='users.User'
 
+# Login Redirect
+LOGIN_REDIRECT_URL = '/users/profile'
 # Application definition
 
 INSTALLED_APPS = [
@@ -80,7 +82,7 @@ WSGI_APPLICATION = 'periodtracker.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': str(BASE_DIR / 'db.sqlite3'),
     }
 }
 
