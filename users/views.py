@@ -1,22 +1,22 @@
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeDoneView, PasswordChangeView, PasswordResetCompleteView, PasswordResetConfirmView, PasswordResetDoneView, PasswordResetView
 from django.http.response import HttpResponse
 from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
 from django.views.generic.base import View
 from django.contrib.auth import authenticate, login
-from .forms import SignInForm, SignUpForm
+from .forms import LoginForm, RegisterForm
 
 
-class SignInPage(LoginView):
-    form_class = SignInForm
-    template_name = "signin.html"
+class LoginPage(LoginView):
+    form_class = LoginForm
+    template_name = "users/login.html"
     redirect_authenticated_user = True
 
 
-class SignUpPage(View):
+class RegisterPage(View):
     def post(self, request):
-        form = SignUpForm(request.POST)
+        form = RegisterForm(request.POST)
         if form.is_valid():
             user = form.save()
             user = authenticate(
@@ -24,7 +24,7 @@ class SignUpPage(View):
                 username=form.cleaned_data["email"],
                 password=form.cleaned_data["password1"],
             )
-            login(request,user)
+            login(request, user)
             return redirect("/users/profile")
         else:
             isbound = form.is_bound
@@ -32,10 +32,10 @@ class SignUpPage(View):
             return HttpResponse(isbound, er)
 
     def get(self, request):
-        return render(request, "signup.html", context={"SignUpForm": SignUpForm()})
+        return render(request, "users/register.html", context={"form": RegisterForm()})
 
 
-@method_decorator(login_required(login_url="/users/signin"), name="dispatch")
+@method_decorator(login_required(login_url="/users/login"), name="dispatch")
 class ProfilePage(View):
     def get(self, request):
         user = request.user
@@ -47,5 +47,28 @@ class ProfilePage(View):
         pfp_url = user.picture
 
         return render(
-            request, "profile.html", context={"info": info, "pfp_url": pfp_url}
+            request, "users/profile.html", context={"info": info, "pfp_url": pfp_url}
         )
+
+
+class LogoutPage(LogoutView):
+    template_name = 'users/logged_out.html'
+
+class PasswordChangePage(PasswordChangeView):
+    template_name = 'users/password_change_form.html'
+
+class PasswordChangeDonePage(PasswordChangeDoneView):
+    template_name = 'users/password_change_done.html'
+
+class PasswordResetPage(PasswordResetView):
+    template_name = 'users/password_reset_form.html'
+    email_template_name = 'users/password_reset_email.html'
+
+class PasswordResetDonePage(PasswordResetDoneView):
+    template_name = 'users/password_reset_done.html'
+
+class PasswordResetConfirmPage(PasswordResetConfirmView):
+    template_name = 'users/password_reset_confirm.html'
+
+class PasswordResetCompletePage(PasswordResetCompleteView):
+    template_name = 'users/password_reset_complete.html'

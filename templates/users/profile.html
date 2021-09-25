@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% block title %} Profile {% endblock %}
+{% block content %}
+<center>
+<img src="{{pfp_url}}">
+<br>
+{% for k,v in info.items %}
+    <br><b> your {{k}}:</b> {{v}}
+{% endfor %}
+
+<p><a href="{% url 'logout' %}">Logout</a></p>
+</center>
+{% endblock %}
+</html>

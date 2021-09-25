@@ -221,6 +221,13 @@ def trackable_manage(request):
 
 @csrf_exempt
 def add_categories(request):
+    if request.method == "GET":
+        return render(
+            request,
+            "base.html",
+            context={"catdict": 'a', "done": "Changes Saved!"},
+        )
+
     if request.method == "POST":
         names = request.POST.get("names").split("\n")
         cats = request.POST.get("cats").split("\n")
