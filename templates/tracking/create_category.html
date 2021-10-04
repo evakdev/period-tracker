@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+<html lang='en'>
+
+{% block title %} Create a New Category {% endblock %}
+{% block content %}
+    <center>
+        <h3> What should we name your new category?</h3>
+        <p><form method='POST' class='post-form'>
+            {% csrf_token %}
+            {{form.as_table}}
+            <p><button type='submit'> Create </button></p>
+        </form></p>
+    </center>
+{% endblock %}
+</html>

@@ -44,6 +44,8 @@
                     <form method='POST' class='post-form'>
                       {% csrf_token %} 
                       <table>{{forms.newcat.as_table}}</table>
+                      {{forms.newcat.non_field_errors}}
+                      
                       <p><button type='submit' name='addcategory' class="u-btn u-btn-round u-button-style u-hover-palette-3-light-2 u-palette-3-light-1 u-radius-50 u-btn-1">Add</button>
                       </p>
                     </form>

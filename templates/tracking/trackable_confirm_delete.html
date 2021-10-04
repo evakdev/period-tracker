@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+<html lang='en'>
+{% block title %} Delete {% endblock %}
+{% block content %}
+    <center>
+        <h3> Are you sure you want to delete {{object.name}}? </h3>
+        <p>This will delete all of your stats for this trackable.</p>
+        <form method='POST'> {% csrf_token %}
+        <input type='submit' value='Confirm'>
+        </form>
+        <p><a href='{% url "trackable_details" object.pk %}'> No, Take me back to the Trackable page. </a></p>
+    </center>
+{% endblock %}
+</html>

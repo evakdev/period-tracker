@@ -7,7 +7,6 @@ from django.views.generic.base import View
 from django.contrib.auth import authenticate, login
 from .forms import LoginForm, RegisterForm
 
-
 class LoginPage(LoginView):
     form_class = LoginForm
     template_name = "users/login.html"

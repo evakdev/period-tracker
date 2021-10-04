@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+<html lang='en'>
+
+{% block title %} Categories {% endblock %}
+{% block content %}
+    <center>
+        <h3> 
+            Categories 
+            <a href="{% url 'create_category' %}"> 
+                <img class='icon' src="{% static 'icons/add.png' %}" title='Add'>
+            </a> 
+        </h3>
+        {% if not categories %}
+            <p>You dont have any categories at the moment.</p>
+            <p>click the plus sign above to create one! </p>
+        {% else %}
+            {% for category in categories %}
+                <p>
+                    <a href="{% url 'category_details' category.pk %}">{{category.name}} </a>
+                </p>
+            {% endfor %}
+        {% endif %}
+        
+    </center>
+{% endblock %}
+</html>

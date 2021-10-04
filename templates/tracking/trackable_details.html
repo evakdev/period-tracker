@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+<html lang='en'>
+{% load static %}
+{% block title %} Trackable Details {% endblock %}
+{% block content %}
+    <center>
+        <h3> 
+            {{trackable.name}}
+            <a href="{% url 'update_trackable' trackable.pk %}"> 
+                <img class='icon' src="{% static 'icons/edit.png' %}" title='Edit'>
+            </a>
+            <a href="{% url 'delete_trackable' trackable.pk %}"> 
+                <img class='icon' src="{% static 'icons/delete.png' %}" title='Delete'>
+        </h3>
+        <p><a href="{% url 'move_trackable' trackable.pk %}"> Move this trackable to another category </a>
+
+    </center>
+{% endblock %}
+</html>

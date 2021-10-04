@@ -1,4 +1,5 @@
 
+from tracking.models import Trackable, Category,Cycle
 import random
 
 from django.contrib.auth import get_user_model
@@ -6,11 +7,13 @@ from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.db.models.deletion import CASCADE
-
-from tracking.models import Category, Cycle, Trackable
+from django.db.models.query import EmptyQuerySet
+from django.db.models.query_utils import Q
 
 
 class MyUserManager(BaseUserManager):
+
+
     def create_user(self, email, username, date_of_birth, password=None):
         if not email:
             raise ValueError("Email should be set")
@@ -35,7 +38,7 @@ class MyUserManager(BaseUserManager):
  
 
 class User(AbstractUser):
-    default_pfp_url = "https://media.discordapp.net/attachments/709534905733873775/863456819291488296/duck-2-128_1.png"
+    default_pfp_url = "https://i.ibb.co/k9RDpkG/default-pfp.png"
     email = models.EmailField(unique=True)
     username = models.CharField(max_length=50)
     numeroid = models.CharField(max_length=4)
@@ -43,7 +46,6 @@ class User(AbstractUser):
     date_of_birth = models.DateField()
     picture = models.URLField(default=default_pfp_url)
     categories = models.ManyToManyField(Category, related_name="user_categories", null=True ,blank=True)
-    trackables = models.ManyToManyField(Trackable, related_name="user_trackables", null=True ,blank=True)
     cycles = models.ForeignKey(Cycle, on_delete=CASCADE, related_name="user_cycles", null=True ,blank=True)
 
     USERNAME_FIELD = "email"
@@ -52,10 +54,10 @@ class User(AbstractUser):
     objects = MyUserManager()
 
     def save(self, *args, **kwargs):
-
         while True:
             numeroid = str(random.randrange(1, 10000)).zfill(4)
             unique_id = f"{self.username}#{numeroid}"
+
             try:
                 checking = get_user_model().objects.get(unique_id=unique_id)
             except:
@@ -63,6 +65,22 @@ class User(AbstractUser):
                 self.unique_id = unique_id
                 super().save(*args, **kwargs)
                 return
+    @property
+    def trackables(self):
+        trackables=Trackable.objects.none()
+        for category in self.categories.all(    ):
+            trackables=trackables.union(category.trackables.all())
+        return trackables
+
+    def category_name_is_duplicate(self,name):
+        category_names = self.categories.values_list('name',flat=True)
+        clean_name = name.lower().strip()
+        return clean_name in category_names
+    
+    def trackable_name_is_duplicate(self,name):
+        trackable_names = self.trackables.values_list('name',flat=True)
+        clean_name = name.lower().strip()
+        return clean_name in trackable_names
 
     def __str__(self):
         return self.unique_id

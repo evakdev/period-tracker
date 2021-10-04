@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+<html lang='en'>
+{% load static %}
+{% block title %} Category Details {% endblock %}
+{% block content %}
+    <center>
+        <h3> 
+            {{category.name}}
+            <a href="{% url 'update_category' category.pk %}"> 
+                <img class='icon' src="{% static 'icons/edit.png' %}" title='Edit'>
+            </a>
+            <a href="{% url 'delete_category' category.pk %}"> 
+                <img class='icon' src="{% static 'icons/delete.png' %}" title='Delete'>
+            </a> 
+        </h3>   
+
+        <h6>
+            <b> Trackables </b> 
+            <a href="{% url 'create_trackable' category.pk %}"> 
+                <img class='icon' src="{% static 'icons/add.png' %}" title='Add'>
+            </a> 
+        </h6>       
+        {% if not category.trackables.all %}
+            
+            <p>You dont yet have any trackables in this category.</p>
+            <p>Go ahead and add one! </p>
+        {% else %}
+            {% for trackable in category.trackables.all %}
+                <p><a href="{% url 'trackable_details' trackable.pk %}"> {{trackable.name}} </p>
+            {% endfor %}
+        {% endif %}
+    </center>
+{% endblock %}
+</html>

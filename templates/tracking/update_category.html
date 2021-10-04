@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+<html lang='en'>
+
+{% block title %} Update Category {% endblock %}
+{% block content %}
+    <center>
+        <h3> Found a better name? Enter below!</h3>
+        <p><form method='POST' class='post-form'>
+            {% csrf_token %}
+            {{form.as_table}}
+            <p><button type='submit'> Submit </button></p>
+        </form></p>
+    </center>
+{% endblock %}
+</html>

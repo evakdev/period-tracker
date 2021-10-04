@@ -1,7 +1,107 @@
 from django import forms
+from django.core.exceptions import ValidationError
+from django.forms.models import ModelChoiceField
 
 from .models import Category, Trackable
 
+
+class CreateCategoryForm(forms.ModelForm):
+    def __init__(self,*args,**kwargs):
+        self.user = kwargs.pop('user', None)
+        super().__init__(*args,**kwargs)
+
+    class Meta:
+        model = Category
+        fields = ('name',)
+        labels = {'name': ""}
+
+    def clean_name(self):
+        name=self.cleaned_data.get('name')
+        name_exists = self.user.category_name_is_duplicate(name)
+        if name_exists:
+            raise ValidationError('You already have a category with that name.')
+        return name
+
+class UpdateCategoryForm(forms.Form):
+
+    def __init__(self,*args,**kwargs):
+        self.user = kwargs.pop('user', None)
+        super().__init__(*args,**kwargs)
+
+    new_name = forms.CharField(max_length=100, min_length=1, label="")
+
+    def clean_new_name(self):
+        new_name=self.cleaned_data.get('new_name')
+        new_name_exists = self.user.category_name_is_duplicate(new_name)
+        if new_name_exists:
+            raise ValidationError('You already have a category with that name.')
+        return new_name
+
+    class Meta:
+        model = Category
+        fields = ('new_name',)
+
+class CreateTrackableForm(forms.ModelForm):
+    def __init__(self,*args,**kwargs):
+        self.user = kwargs.pop('user', None)
+        super().__init__(*args,**kwargs)
+
+    class Meta:
+        model = Trackable
+        fields = ('name',)
+        labels = {'name': ""}
+
+    def clean_name(self):
+        name=self.cleaned_data.get('name')
+        name_exists = self.user.trackable_name_is_duplicate(name)
+        if name_exists:
+            raise ValidationError('You already have a trackable with that name.')
+        return name
+
+class UpdateTrackableForm(forms.Form):
+
+    def __init__(self,*args,**kwargs):
+        self.user = kwargs.pop('user', None)
+        super().__init__(*args,**kwargs)
+
+    new_name = forms.CharField(max_length=100, min_length=1)
+
+    def clean_new_name(self):
+        new_name=self.cleaned_data.get('new_name')
+        new_name_exists = self.user.trackable_name_is_duplicate(new_name)
+        if new_name_exists:
+            raise ValidationError('You already have a trackable with that name.')
+        return new_name
+
+    class Meta:
+        model = Trackable
+        fields = ('new_name',)
+
+
+class MoveTrackableForm(forms.Form):
+
+    def __init__(self,*args,**kwargs):
+        self.user = kwargs.pop('user', None)
+        super().__init__(*args,**kwargs)
+        self.fields['category'].queryset = self.user.categories.all()
+
+    category = ModelChoiceField(queryset=None)
+
+    class Meta:
+        model = Trackable
+        fields = ('category',)
+
+
+class DeleteTrackableForm(forms.ModelForm):
+    class Meta:
+        model = Trackable
+        fields = ('name',)
+
+
+
+
+
+####################################
 
 def tuplemaker(themodel):
     values=list(themodel.objects.values_list('name', flat=True).order_by('name'))
@@ -10,17 +110,6 @@ def tuplemaker(themodel):
         final.append((values[i],values[i]))
     return final
 
-class NewCategoryForm(forms.Form):
-    name=forms.CharField(label='New Category')
-
-    def clean_category(self):
-        category=self.cleaned_data['name']
-        try:
-            Category.objects.get(name=category)
-            message='Look at that, you already have that category!'
-            raise forms.ValidationError(message)
-        except:
-            return category
 
 class NewTrackableForm(forms.Form):
 
@@ -54,9 +143,10 @@ class EditTrackableForm(forms.Form):
     tracks=tuplemaker(Trackable)
     cats = tuplemaker(Category)
     
+    oldcat=forms.ChoiceField(choices=cats,label = 'Old Category')
     name=forms.ChoiceField(choices=tracks,label='The Trackable')
     newname = forms.CharField(label='Its New Name')
-    newcat=forms.ChoiceField(choices=cats)
+    newcat=forms.ChoiceField(choices=cats, label = 'New Category')
     def clean_newname(self):
         newname=self.cleaned_data['newname']
         try:
@@ -77,4 +167,6 @@ class DeleteCateogryForm(forms.Form):
 
 class DeleteTrackableForm(forms.Form):
     tracks = tuplemaker(Trackable)
+    cats = tuplemaker(Category)
+    cat = forms.ChoiceField(choices = cats, label='Category')
     name = forms.ChoiceField(choices=tracks,label='The Trackable')

@@ -1,3 +1,9 @@
+.icon {
+  position: relative;
+  /* Adjust these values accordingly */
+  top: 5px;
+
+}
 .u-section-1 {
   background-image: none;
 }
