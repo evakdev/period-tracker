@@ -1,3 +1,5 @@
+from .general import RedirectView
+
 from .categories import (
     CategoryListView,
     CategoryDetailView,

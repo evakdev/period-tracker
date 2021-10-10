@@ -1,19 +1,13 @@
 
-from tracking.models import Trackable, Category,Cycle
 import random
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from django.db.models.deletion import CASCADE
-from django.db.models.query import EmptyQuerySet
-from django.db.models.query_utils import Q
 
 
 class MyUserManager(BaseUserManager):
-
-
     def create_user(self, email, username, date_of_birth, password=None):
         if not email:
             raise ValueError("Email should be set")
@@ -35,7 +29,7 @@ class MyUserManager(BaseUserManager):
         user.is_superuser = True
         user.save(using=self._db)
         return user
- 
+
 
 class User(AbstractUser):
     default_pfp_url = "https://i.ibb.co/k9RDpkG/default-pfp.png"
@@ -45,8 +39,6 @@ class User(AbstractUser):
     unique_id = models.CharField(max_length=55)
     date_of_birth = models.DateField()
     picture = models.URLField(default=default_pfp_url)
-    categories = models.ManyToManyField(Category, related_name="user_categories", null=True ,blank=True)
-    cycles = models.ForeignKey(Cycle, on_delete=CASCADE, related_name="user_cycles", null=True ,blank=True)
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username", "date_of_birth"]
@@ -65,20 +57,21 @@ class User(AbstractUser):
                 self.unique_id = unique_id
                 super().save(*args, **kwargs)
                 return
+
     @property
     def trackables(self):
-        trackables=Trackable.objects.none()
-        for category in self.categories.all(    ):
-            trackables=trackables.union(category.trackables.all())
+        trackables = self.categories.first().trackables.none()
+        for category in self.categories.all():
+            trackables = trackables.union(category.trackables.all())
         return trackables
 
-    def category_name_is_duplicate(self,name):
-        category_names = self.categories.values_list('name',flat=True)
+    def category_name_is_duplicate(self, name):
+        category_names = self.categories.values_list("name", flat=True)
         clean_name = name.lower().strip()
         return clean_name in category_names
-    
-    def trackable_name_is_duplicate(self,name):
-        trackable_names = self.trackables.values_list('name',flat=True)
+
+    def trackable_name_is_duplicate(self, name):
+        trackable_names = self.trackables.values_list("name", flat=True)
         clean_name = name.lower().strip()
         return clean_name in trackable_names
 

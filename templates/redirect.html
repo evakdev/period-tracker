@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+<html lang='en'>
+{% block title %} Redirect {% endblock %}
+{% block content %}
+{{redirect_url}}
+<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
+<script type="text/javascript">
+$(document).ready(function(){
+
+    alert({{msg}});
+
+    setTimeout(function(){
+        window.location.href = "{% url redirect_url %}";
+        }, 5000);
+});
+</script>
+{% endblock %}
+
+
+</html>
