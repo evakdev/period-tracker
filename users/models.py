@@ -58,15 +58,6 @@ class User(AbstractUser):
                 super().save(*args, **kwargs)
                 return
 
-    @property
-    def trackables(self):
-        if self.categories.all().exists():
-            trackables = self.categories.first().trackables.none()
-            for category in self.categories.all():
-                trackables = trackables.union(category.trackables.all())
-            return trackables
-        else:return self.categories.all()
-
     def category_name_is_duplicate(self, name):
         category_names = self.categories.values_list("name", flat=True)
         clean_name = name.lower().strip()

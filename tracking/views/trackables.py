@@ -13,7 +13,7 @@ class TrackableDetailView(View):
     def get(self, request, pk):
         user = request.user
         trackable = get_object_or_404(Trackable, pk = pk)
-        if trackable.category not in user.categories.all():
+        if trackable not in user.trackables.all():
             return HttpResponseNotFound
         return render(
             request, "tracking/trackable_details.html", context={"trackable": trackable}
@@ -32,7 +32,7 @@ class CreateTrackableView(View):
         if form.is_valid():
             category = get_object_or_404(user.categories.all(), pk=category_pk)
             name = form.cleaned_data.get("name")
-            trackable = Trackable.objects.create(name=name, category=category)
+            trackable = Trackable.objects.create(name=name, category=category, user=user)
             return JsonResponse({"alert": f"{name} trackable successfully created!"})
         return render(request, "tracking/create_trackable.html", context={"form": form})
 
@@ -48,7 +48,7 @@ class UpdateTrackableView(View):
         form = UpdateTrackableForm(request.POST, user=user)
         if form.is_valid():
             trackable = get_object_or_404(Trackable, pk=pk)
-            if trackable.category not in user.categories.all():
+            if trackable not in user.trackables.all():
                 return HttpResponseNotFound
             old_name = trackable.name
             new_name = form.cleaned_data.get("new_name")
@@ -65,7 +65,7 @@ class MoveTrackableView(View):
     def get(self, request, pk):
         user = request.user
         trackable = get_object_or_404(Trackable, pk=pk)
-        if trackable.category not in user.categories.all():
+        if trackable not in user.trackables.all():
             return HttpResponseNotFound
         initial={'category':trackable.category}
         form = MoveTrackableForm(user=user, initial=initial)
@@ -76,7 +76,7 @@ class MoveTrackableView(View):
         form = MoveTrackableForm(request.POST, user=user)
         if form.is_valid():
             trackable = get_object_or_404(Trackable, pk=pk)
-            if trackable.category not in user.categories.all():
+            if trackable not in user.trackables.all():
                 return HttpResponseNotFound
             old_category = trackable.category
             new_category = form.cleaned_data.get("category")  
@@ -102,7 +102,7 @@ class DeleteTrackableView(DeleteView):
     def post(self, request, pk):
         user = request.user
         trackable = get_object_or_404(Trackable, pk=pk)
-        if trackable.category not in user.categories.all():
+        if trackable not in user.trackables.all():
             return HttpResponseNotFound
         trackable.delete()
         return JsonResponse({"alert": f"{trackable.name} successfully deleted."})

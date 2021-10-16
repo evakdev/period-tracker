@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% block title %} Logging {% endblock %}
+{% block content %}
+    <center>
+        <p><form method='POST' class='post-form'>
+            {% csrf_token %}
+            {{form.as_p}}
+            <p><button type='submit'> Submit </button></p>
+        </form></p>
+
+
+    </center>
+
+    
+{% endblock %}
+</html>

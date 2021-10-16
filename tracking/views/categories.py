@@ -2,7 +2,7 @@
 from django.views.generic.base import View
 from django.views.generic.edit import DeleteView
 from django.http.response import JsonResponse
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import get_object_or_404, render
 
 from ..models import Category
 from ..forms import CreateCategoryForm, UpdateCategoryForm
@@ -42,12 +42,6 @@ class CreateCategoryView(View):
             name = form.cleaned_data.get("name")
             category = Category.objects.create(name=name, user=user)
             return JsonResponse({'alert':f"{name} category successfully created!"})
-            ##trying redirect
-            redirect_data = {
-                    "msg": f"{name} category successfully created!",
-                    'redirect_url': 'category_list'
-                    }
-            return render(request, 'redirect.html', context=redirect_data)
         return render(request, "tracking/create_category.html", context={"form": form})
 
 
