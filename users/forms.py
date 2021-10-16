@@ -5,7 +5,7 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 
 
 class RegisterForm(UserCreationForm):
-
+    date_of_birth = forms.DateField(widget=forms.SelectDateWidget())
     class Meta:
         model=get_user_model()
         fields=('email','username','password1','password2', 'date_of_birth')
