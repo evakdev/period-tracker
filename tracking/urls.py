@@ -4,7 +4,6 @@ from django.urls import path
 from .views import *
 
 urlpatterns = [
-    path('redirect',RedirectView.as_view(), name='redirect_page'),
     path('categories',CategoryListView.as_view(),name ='category_list'),
     path('categories/<int:pk>', CategoryDetailView.as_view(), name = 'category_details'),
     path('categories/create',CreateCategoryView.as_view(),name ='create_category'),

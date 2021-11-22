@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404, render
 
 from ..models import Trackable
 from ..forms import CreateTrackableForm, MoveTrackableForm, UpdateTrackableForm
-from ..permissions import login_required_for_class
+from periodtracker.decorators import login_required_for_class
 
 
 @login_required_for_class
