@@ -49,7 +49,6 @@ class CreateTrackableForm(forms.ModelForm):
     class Meta:
         model = Trackable
         fields = ('name',)
-        labels = {'name': ""}
 
     def clean_name(self):
         name=self.cleaned_data.get('name')
