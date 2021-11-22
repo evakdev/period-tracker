@@ -15,11 +15,12 @@ def create_default_user_flow(sender, instance, created, **kwargs):
 def create_flow_trackables(sender, instance, created, **kwargs):
     if not created:
         return
+    user_id = instance.user_id
     trackables = [
-        Trackable(name="Spotting", related_flow_id=instance.id),
-        Trackable(name="Low", related_flow_id=instance.id),
-        Trackable(name="Medium", related_flow_id=instance.id),
-        Trackable(name="Heavy", related_flow_id=instance.id),
-        Trackable(name="Very Heavy", related_flow_id=instance.id),
+        Trackable(name="Spotting", related_flow_id=instance.id, user_id=user_id),
+        Trackable(name="Low", related_flow_id=instance.id, user_id=user_id),
+        Trackable(name="Medium", related_flow_id=instance.id, user_id=user_id),
+        Trackable(name="Heavy", related_flow_id=instance.id, user_id=user_id),
+        Trackable(name="Very Heavy", related_flow_id=instance.id, user_id=user_id),
     ]
     Trackable.objects.bulk_create(trackables)
