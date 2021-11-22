@@ -18,13 +18,23 @@ class Category(models.Model):
         verbose_name_plural = "Categories"
 
 class Flow(models.Model):
+    LEVELS = [
+        ('0', 'Spotting'),
+        ('1','Low'),
+        ('2', 'Medium'),
+        ('3', 'Heavy'),
+        ('4', 'Very Heavy')
+    ]
+
     user = models.OneToOneField(User,on_delete=CASCADE,related_name='flow')
+    level = models.CharField(choices=LEVELS, max_length=1)
 
 class Trackable(models.Model):
     name = models.CharField(max_length=200)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='trackables', null=True)
     related_flow = models.ForeignKey(Flow, on_delete=CASCADE,related_name='trackables', null=True,blank=True)
     user = models.ForeignKey(User, on_delete=CASCADE, related_name='trackables')
+    
     def __str__(self):
         return self.name
 
