@@ -7,30 +7,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 
-class MyUserManager(BaseUserManager):
-    def create_user(self, email, username, date_of_birth, password=None):
-        if not email:
-            raise ValueError("Email should be set")
-        email = self.normalize_email(email)
-        user = self.model(email=email)
-        user.set_password(password=password)
-        user.username = username
-        user.date_of_birth = date_of_birth
-        user.save()
-        return user
-
-    def create_superuser(self, email, username, date_of_birth, password=None):
-        email = self.normalize_email(email)
-        user = self.model(email=email)
-        user.set_password(password)
-        user.username = username
-        user.date_of_birth = date_of_birth
-        user.is_staff = True
-        user.is_superuser = True
-        user.save(using=self._db)
-        return user
-
-
+    
 class User(AbstractUser):
     default_pfp_url = "https://i.ibb.co/k9RDpkG/default-pfp.png"
     email = models.EmailField(unique=True)
@@ -42,8 +19,6 @@ class User(AbstractUser):
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username", "date_of_birth"]
-
-    objects = MyUserManager()
 
     def save(self, *args, **kwargs):
         while True:
