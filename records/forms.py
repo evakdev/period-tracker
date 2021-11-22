@@ -2,8 +2,8 @@ from functools import partial
 from itertools import groupby
 from operator import attrgetter
 from django import forms
+from django.forms.formsets import formset_factory
 from django.forms.models import (
-    ModelChoiceField,
     ModelMultipleChoiceField,
     ModelChoiceIterator,
 )
@@ -41,21 +41,18 @@ class GroupedModelChoiceField(ModelMultipleChoiceField):
 class LoggingForm(forms.Form):
     """Attention: This form is rendered manually. edit logging.html after any edit in this form."""
 
+    bleeding = forms.ModelChoiceField(
+        required=False, queryset=None, empty_label='Not Bleeding', label="Flow Level"
+    )
+    trackables = GroupedModelChoiceField(
+        required=False,
+        queryset=None,
+        choices_groupby="category",
+        widget=forms.CheckboxSelectMultiple(attrs={"class": "filled-in"}),
+    )
+
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop("user", None)
         super().__init__(*args, **kwargs)
         self.fields["bleeding"].queryset = self.user.flow.trackables.all()
-        self.fields["trackables"].queryset = self.user.trackables
-
-    is_bleeding = forms.BooleanField(
-        required=False, label="Are you experiencing bleeding?"
-    )
-    bleeding = forms.ModelChoiceField(
-        queryset=None, empty_label=None, label="Flow Level"
-    )
-
-    trackables = GroupedModelChoiceField(
-        queryset=None,
-        choices_groupby="category",
-        widget=forms.SelectMultiple(attrs={"class": "filled-in"}),
-    )
+        self.fields["trackables"].queryset = self.user.trackables.all()
